@@ -4,7 +4,7 @@ project(cos-cpp-sdk)
 set(CMAKE_VERBOSE_MAKEFILE  ON)
 
 option(BUILD_UNITTEST "Build unittest" OFF)
-option(BUILD_DEMO "Build demo" ON)
+option(BUILD_DEMO "Build demo" OFF)
 option(BUILD_SHARED_LIB "Build shared library" OFF)
 option(ENABLE_COVERAGE "Enable Coverage" OFF)
 
@@ -28,8 +28,7 @@ endif()
 
 message(STATUS "OS type: ${OS_TYPE}")
 
-set(POCO_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/third_party/include/)
-set(POCO_LIBS PocoNetSSL PocoNet PocoCrypto PocoUtil PocoJSON PocoXML PocoFoundation)
+find_package(Poco REQUIRED COMPONENTS Data DataSQLite Foundation Net Util JSON XML )
 if (${OS_TYPE} STREQUAL "WINDOWS")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
     set(BUILD_TARGET "Win32")
@@ -62,10 +61,8 @@ elseif(${OS_TYPE} STREQUAL "Android")
 # Linux or MacOs
 else()
     if (${OS_TYPE} STREQUAL "APPLE")
-        set(POCO_LINK_DIR ${CMAKE_SOURCE_DIR}/third_party/lib/macOS/poco/)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra")
     else()
-        set(POCO_LINK_DIR ${CMAKE_SOURCE_DIR}/third_party/lib/linux/poco/)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra")
     endif()
 
