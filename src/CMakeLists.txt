@@ -59,3 +59,9 @@ if(BUILD_SHARED_LIB)
         ${OPENSSL_LIBS} 
         ${SYSTEM_LIBS})
 endif()
+
+
+install (TARGETS ${PROJECT_NAME}
+    DESTINATION lib)
+
+install (DIRECTORY ../include DESTINATION ./)
