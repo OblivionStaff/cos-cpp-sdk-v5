@@ -34,19 +34,21 @@ message("Sdk header: ${sdk_header}")
 message("Sdk src: ${sdk_src}")
 
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib)
-include_directories(${CMAKE_SOURCE_DIR}/include/ )
 
 add_library(${PROJECT_NAME} STATIC ${sdk_src} ${sdk_header})
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "cossdk")
 
 target_include_directories(${PROJECT_NAME}
     PRIVATE
+        ${CMAKE_SOURCE_DIR}/include/
         ${CMAKE_SOURCE_DIR}/third_party/include/
-        ${Poco_LIBRARIES}
+        ${OPENSSL_INCLUDE_DIR}
 )
 
 target_link_libraries(${PROJECT_NAME}
         ${Poco_LIBRARIES}
+        ${OPENSSL_LIBRARIES} 
+        ${SYSTEM_LIBS}
 )
 
 if(BUILD_SHARED_LIB)
