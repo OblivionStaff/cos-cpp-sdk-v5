@@ -42,21 +42,21 @@ set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "cossdk")
 target_include_directories(${PROJECT_NAME}
     PRIVATE
         ${CMAKE_SOURCE_DIR}/third_party/include/
-        Poco_LIBRARIES
+        ${Poco_LIBRARIES}
 )
 
 target_link_libraries(${PROJECT_NAME}
-        Poco_LIBRARIES
+        ${Poco_LIBRARIES}
 )
 
 if(BUILD_SHARED_LIB)
     message(STATUS "Build shared lib")
-    link_directories( ${OPENSSL_LINK_DIR}) #这一行要放到add_library前面
+    include_directories(${CMAKE_SOURCE_DIR}/third_party/include/ ${OPENSSL_INCLUDE_DIR}) #这一行要放到add_library前面
     add_library(${PROJECT_NAME}-shared SHARED ${sdk_src})
-    
+
     target_link_libraries(${PROJECT_NAME}-shared 
-        Poco_LIBRARIES
-        ${OPENSSL_LIBS} 
+        ${Poco_LIBRARIES}
+        ${OPENSSL_LIBRARIES} 
         ${SYSTEM_LIBS})
 endif()
 

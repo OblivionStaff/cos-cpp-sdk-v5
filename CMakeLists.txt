@@ -29,6 +29,7 @@ endif()
 message(STATUS "OS type: ${OS_TYPE}")
 
 find_package(Poco REQUIRED COMPONENTS Data DataSQLite Foundation Net Util JSON XML )
+find_package(OpenSSL)
 if (${OS_TYPE} STREQUAL "WINDOWS")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
     set(BUILD_TARGET "Win32")
