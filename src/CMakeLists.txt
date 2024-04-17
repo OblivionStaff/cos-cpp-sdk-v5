@@ -53,8 +53,12 @@ target_link_libraries(${PROJECT_NAME}
 
 if(BUILD_SHARED_LIB)
     message(STATUS "Build shared lib")
-    include_directories(${CMAKE_SOURCE_DIR}/third_party/include/ ${OPENSSL_INCLUDE_DIR}) #这一行要放到add_library前面
     add_library(${PROJECT_NAME}-shared SHARED ${sdk_src})
+    target_include_directories(${PROJECT_NAME}-shared
+        PRIVATE
+                ${CMAKE_SOURCE_DIR}/include/
+                ${CMAKE_SOURCE_DIR}/third_party/include/
+                ${OPENSSL_INCLUDE_DIR})
 
     target_link_libraries(${PROJECT_NAME}-shared 
         ${Poco_LIBRARIES}
